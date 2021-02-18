@@ -34,28 +34,27 @@ class RedisClient:
             return
 
     def set_init_data(self):
-        pass
-        # with open(f'companies_data.json', 'r') as init_data:
-        #     companies = json.load(init_data)
-        #     try:
-        #         for company in companies:
-        #             self.redis_client.zadd(
-        #                 settings.REDIS_LEADERBOARD,
-        #                 {
-        #                     company.get('symbol').lower(): company.get('marketCap')
-        #                 }
-        #             )
-        #
-        #             self.redis_client.hset(
-        #                 company.get('symbol').lower(),
-        #                 mapping={
-        #                     'company': company.get('company'),
-        #                     'country': company.get('country')
-        #                 }
-        #             )
-        #     except ConnectionError:
-        #         logger.error(f'Redis connection time out to {settings.REDIS_HOST}:{settings.REDIS_PORT}.')
-        #         return
+        with open(f'companies_data.json', 'r') as init_data:
+            companies = json.load(init_data)
+            try:
+                for company in companies:
+                    self.redis_client.zadd(
+                        settings.REDIS_LEADERBOARD,
+                        {
+                            company.get('symbol').lower(): company.get('marketCap')
+                        }
+                    )
+
+                    self.redis_client.hset(
+                        company.get('symbol').lower(),
+                        mapping={
+                            'company': company.get('company'),
+                            'country': company.get('country')
+                        }
+                    )
+            except ConnectionError:
+                logger.error(f'Redis connection time out to {settings.REDIS_HOST}:{settings.REDIS_PORT}.')
+                return
 
 
 class CompaniesRanks(RedisClient):
