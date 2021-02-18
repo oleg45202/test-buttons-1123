@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'l8ftx5(_snb7om^ib$!5g%e+x3ph+eqw$*rtx!dnsf%#*2^r*d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DJANGO_DEBUG", True)
+DEBUG = True
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", ['127.0.0.1', 'localhost', '.vercel.app', 'a.run.app', '.a.run.app', '.herokuapp.com'])
 
@@ -43,9 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'core.apps.CoreConfig'
-
+    'django.contrib.staticfiles'
 ]
 
 MIDDLEWARE = [
